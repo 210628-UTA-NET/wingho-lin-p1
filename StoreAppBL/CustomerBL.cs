@@ -45,14 +45,13 @@ namespace StoreAppBL
             return _repo.GetStoreProducts(p_storeID);
         }
 
-        public List<LineItem> GetAllStoreInventory()
+        public List<int> GetStoreProductIDs(int p_storeID)
+        {
+            return _repo.GetStoreProductIDs(p_storeID);
+        }
+        public List<Product> GetAllStoreInventory()
         {
             return _repo.GetAllStoreInventory();
-        }
-
-        public List<LineItem> GetStoreInventory(int p_storeID)
-        {
-            return _repo.GetStoreInventory(p_storeID);
         }
 
         public List<Order> GetStoreFrontOrders(int p_storeID)
@@ -65,9 +64,9 @@ namespace StoreAppBL
             return _repo.GetAllManagers();
         }
 
-        public bool ReplenishInventory(int p_productID, int addedQuantity)
+        public bool UpdateInventory(int p_productID, int addedQuantity)
         {
-            return _repo.ReplenishInventory(p_productID, addedQuantity);
+            return _repo.UpdateInventory(p_productID, addedQuantity);
         }
 
         public bool PlaceOrder(StoreAppModel.Order p_order, double p_price, int p_custID)

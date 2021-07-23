@@ -26,6 +26,18 @@ namespace StoreAppUI
         }
         public CustomerMenu()
         { }
+
+        private List<int> GetAvailableStoreIDs(List<StoreFront> StoresList)
+        {
+            List<int> StoreIDs = new List<int>();
+
+            foreach (StoreFront store in StoresList)
+            {
+                StoreIDs.Add(store.StoreFrontID);
+            }
+
+            return StoreIDs;
+        }
         public void Menu()
         {
             Console.WriteLine("Welcome to Customer Menu!");
@@ -40,26 +52,40 @@ namespace StoreAppUI
         public MenuType YourChoice()
         {
             string userChoice = Console.ReadLine();
+            List<int> StoreIDs = new List<int>();
 
             switch (userChoice)
             {
                 case "1":
                     StoreList = _custBL.GetAllStoreFronts();
 
-                    Console.WriteLine("List of Stores:");
-                    Console.WriteLine(ASCII.ListDelimiter);
-                    foreach (StoreFront store in StoreList)
+                    if (StoreList.Count > 0)
                     {
-                        Console.WriteLine(store.ToString());
+                        Console.WriteLine("List of Stores:");
                         Console.WriteLine(ASCII.ListDelimiter);
+                        foreach (StoreFront store in StoreList)
+                        {
+                            Console.WriteLine(store.ToString());
+                            Console.WriteLine(ASCII.ListDelimiter);
+                        }
+                        
+                        StoreIDs = GetAvailableStoreIDs(StoreList);
+                        Console.Write("Choose a store and enter its Store ID:\n>> ");
+                        StoreID = int.Parse(Console.ReadLine());
+                        if (StoreIDs.Contains(StoreID))
+                        {
+                            orderMenu.copyCookie(customer, StoreID);
+                        } else
+                        {
+                            Console.WriteLine("Please enter the integer number of a store's ID!\nPress Enter to continue...");
+                            Console.ReadLine();
+                        }
+                        
                     }
                     
-                    Console.Write("Choose a store and enter its Store ID:\n>> ");
-                    StoreID = int.Parse(Console.ReadLine());
-                    orderMenu.copyCookie(customer, StoreID);
                     return MenuType.PlaceOrderMenu;
                 case "2":
-                    // select from Inventory, Products, and LineItems tables in the database to compile an inventory
+                    // ask for store id first
                     StoreList = _custBL.GetAllStoreFronts();
                     
                     Console.WriteLine("List of Stores:");
@@ -73,21 +99,11 @@ namespace StoreAppUI
                     Console.Write("\nChoose a store and enter its Store ID:\n>> ");
                     StoreID = int.Parse(Console.ReadLine());
 
-                    List<LineItem> Inventory = _custBL.GetStoreInventory(StoreID);
-                    List<Product> Products = _custBL.GetStoreProducts(StoreID);
+                    List<Product> Inventory = _custBL.GetStoreProducts(StoreID);
                     Console.WriteLine("List of Store's inventory:\n"+ASCII.ListDelimiter);
-                    foreach (LineItem item in Inventory)
+                    foreach (Product item in Inventory)
                     {
                         Console.WriteLine(item.ToString());
-
-                        // find and print out price since LineItem type doesn't hold price
-                        foreach (Product product in Products)
-                        {
-                            if (item.ProductID == product.ProductID)
-                            {
-                                Console.WriteLine($"Price: ${product.Price}");
-                            }
-                        }
                         Console.WriteLine(ASCII.ListDelimiter);
                     }
 

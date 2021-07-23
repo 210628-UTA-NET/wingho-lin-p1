@@ -32,15 +32,12 @@ namespace StoreAppBL
 
         List<Product> GetStoreProducts(int p_storeID);
 
-        List<LineItem> GetAllStoreInventory();
-
-        List<LineItem> GetStoreInventory(int p_storeID);
-
+        List<int> GetStoreProductIDs(int p_storeID);
         List<Manager> GetAllManagers();
         
         List<Order> GetStoreFrontOrders(int p_storeID);
 
-        bool ReplenishInventory(int p_productID, int addedQuantity);
+        bool UpdateInventory(int p_productID, int addedQuantity);
         bool PlaceOrder(StoreAppModel.Order p_order, double p_price, int p_custID);
 
         string GetStoreLocation(int p_storeID);

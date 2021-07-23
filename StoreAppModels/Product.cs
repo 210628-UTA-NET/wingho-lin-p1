@@ -58,7 +58,7 @@ namespace StoreAppModel
 
         public override string ToString()
         {
-            return $"Product ID: {_productID}\nProduct Name: {_name}\nPrice: ${_price}";
+            return $"Product ID: {_productID}\nProduct Name: {_name}\nPrice: ${_price}\nQuantity: {Quantity}";
         }
         
     }
