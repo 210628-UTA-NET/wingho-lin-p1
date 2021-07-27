@@ -104,6 +104,15 @@ namespace StoreAppDL
             return productIDs;
         }
 
+        public Product GetProductByID(int p_productID)
+        {
+            Product product = new Product();
+
+            product = _context.Products.Find(p_productID);
+
+            return product;
+        }
+
         public bool UpdateInventory(int p_productID, int addedQuantity)
         {
             try
@@ -144,6 +153,26 @@ namespace StoreAppDL
             location = Store.StoreFrontAddress;
 
             return location;
+        }
+
+        public StoreFront GetStoreFrontByID(int p_storeFrontID)
+        {
+            return _context.StoreFronts.Find(p_storeFrontID);
+        }
+
+        public List<LineItem> GetLineItemsByOrderID(int p_orderID)
+        {
+            return _context.LineItems.Where(li => li.Order.OrderID == p_orderID).Select(li => li).ToList();
+        }
+
+        public Order GetOrderByID(int p_orderID)
+        {
+            return _context.Orders.Find(p_orderID);
+        }
+
+        public List<Customer> GetCustomersByName(string p_name)
+        {
+            return _context.Customers.Where(cust => cust.CustomerName.Contains(p_name)).Select(cust => cust).ToList();
         }
     }
 }

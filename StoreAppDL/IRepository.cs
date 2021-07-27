@@ -46,5 +46,11 @@ namespace StoreAppDL
         bool PlaceOrder(StoreAppModel.Order p_order, double p_price, int p_custID);
 
         string GetStoreLocation(int p_storeID);
+
+        Product GetProductByID(int p_productID);
+        StoreFront GetStoreFrontByID(int p_storeFrontID);
+        List<LineItem> GetLineItemsByOrderID(int p_orderID);
+        Order GetOrderByID(int p_orderID);
+        List<Customer> GetCustomersByName(string p_name);
     }
 }

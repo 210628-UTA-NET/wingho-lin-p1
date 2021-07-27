@@ -54,6 +54,7 @@ namespace StoreAppModel
                 _storeFront = value;
             }
         }
+        public int StoreFrontID { get; set; }
         public int ProductQuantity {
             get
             {

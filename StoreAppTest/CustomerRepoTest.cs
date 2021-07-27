@@ -13,6 +13,10 @@ namespace StoreAppTest
     {
         private readonly DbContextOptions<StoreAppDBContext> _options;
 
+        /// <summary>
+        /// Initialize a test object. Database stored in a separate file from main application db
+        /// and data is seeded to have controlled tests.
+        /// </summary>
         public CustomerRepoTest()
         {
             _options = new DbContextOptionsBuilder<StoreAppDBContext>().UseSqlite("Filename = CustomerTest.db").Options;
@@ -37,7 +41,7 @@ namespace StoreAppTest
 
                 //Assert
                 Assert.NotNull(customers);
-                Assert.Equal(2, customers.Count);
+                Assert.Equal(3, customers.Count);
             }
         }
 
@@ -79,7 +83,7 @@ namespace StoreAppTest
                         CustomerPassword = "passwor",
                     });
 
-                Customer customer = repo.GetCustomerByID(3);
+                Customer customer = repo.GetCustomerByID(4);
 
                 Assert.NotNull(customer);
                 Assert.Equal("Bob", customer.CustomerName);
@@ -111,7 +115,95 @@ namespace StoreAppTest
         }
         
         /// <summary>
-        /// This seeds (2) Customer data entries into a database (should be clean).
+        /// This tests if placing multiple orders persists in the database.
+        /// </summary>
+        [Fact]
+        public void PlaceOrderShouldPersist()
+        {
+            using (var context = new StoreAppDBContext(_options))
+            {
+                IRepository repo = new Repository(context);
+                Customer customer = repo.GetCustomerByID(2);  // customer (2) already has 1 order in the db
+                StoreFront storeFront = repo.GetStoreFrontByID(1);
+                List<Order> orders = new List<Order>();
+                Order order1 = new Order
+                {
+                    OrderPrice = 300.00,
+                    Customer = customer,
+                    StoreFront = storeFront
+                };
+                Order order2 = new Order
+                {
+                    OrderPrice = 50.00,
+                    Customer = customer,
+                    StoreFront = storeFront
+                };
+
+                repo.PlaceOrder(order1, order1.OrderPrice, customer.CustomerID);
+                repo.PlaceOrder(order2, order2.OrderPrice, customer.CustomerID);
+                orders = repo.GetCustomerOrders(customer.CustomerID);
+
+                Assert.NotNull(orders);
+                Assert.Equal(3, orders.Count);
+            }
+        }
+
+        /// <summary>
+        /// This should get a List of LineItems by OrderID.
+        /// </summary>
+        [Fact]
+        public void GetLineItemsByOrderIDShouldReturnLineItems()
+        {
+            using (var context = new StoreAppDBContext(_options))
+            {
+                IRepository repo = new Repository(context);
+                Order order = repo.GetOrderByID(1);
+                List<LineItem> lineItems;
+
+                lineItems = repo.GetLineItemsByOrderID(order.OrderID);
+
+                Assert.NotNull(lineItems);
+                Assert.Equal(2, lineItems.Count);
+            }
+        }
+
+        /// <summary>
+        /// This gets a List of Customers by name.
+        /// </summary>
+        [Fact]
+        public void GetCustomersByNameShouldReturnCustomers()
+        {
+            using (var context = new StoreAppDBContext(_options))
+            {
+                IRepository repo = new Repository(context);
+                List<Customer> customers;
+
+                customers = repo.GetCustomersByName("Wing");  // there should be 2 folks matching this
+
+                Assert.NotNull(customers);
+                Assert.Equal(2, customers.Count);
+            }
+        }
+
+        /// <summary>
+        /// This should return a List of all LineItems from the LineItems table.
+        /// </summary>
+        [Fact]
+        public void GetAllLineItemsShouldReturnAllLineItems()
+        {
+            using (var context = new StoreAppDBContext(_options))
+            {
+                IRepository repo = new Repository(context);
+                List<LineItem> lineItems;
+
+                lineItems = repo.GetAllLineItems();
+
+                Assert.Equal(2, lineItems.Count);
+            }
+        }
+
+        /// <summary>
+        /// This seeds (3) Customer and 3 Order data entries into a database (should be clean).
         /// </summary>
         private void Seed()
         {
@@ -137,50 +229,106 @@ namespace StoreAppTest
                     CustomerPhone = "3213213214",
                     CustomerPassword = "password2"
                 };
+                Customer customer3 = new Customer
+                {
+                    CustomerName = "Wing Ho Lin",
+                    CustomerAddress = "234 Going Somewhere Street",
+                    CustomerEmail = "wing@gmail.com",
+                    CustomerPhone = "3334444333",
+                    CustomerPassword = "password"
+                };
 
                 context.Customers.AddRange(
                     customer1,
-                    customer2
-                    );
+                    customer2,
+                    customer3
+                );
 
+                StoreFront store1 = new StoreFront()
+                {
+                    StoreFrontName = "Awesome Toy Store",
+                    StoreFrontAddress = "234 Shoppers Street",
+                };
+                StoreFront store2 = new StoreFront()
+                {
+                    StoreFrontName = "Land Disney",
+                    StoreFrontAddress = "432 Backwards Street",
+                };
+                StoreFront store3 = new StoreFront()
+                {
+                    StoreFrontName = "Mart Wal",
+                    StoreFrontAddress = "321 Backwards Street",
+                };
+
+                context.StoreFronts.AddRange(
+                    store1,
+                    store2,
+                    store3
+                );
+
+                Order order1 = new Order
+                {
+                    OrderID = 1,
+                    OrderPrice = 18.00,
+                    Customer = customer1,
+                    StoreFront = store1
+
+                };
+                Order order2 = new Order
+                {
+                    OrderID = 2,
+                    OrderPrice = 3.00,
+                    Customer = customer1,
+                    StoreFront = store2
+
+                };
+                Order order3 = new Order
+                {
+                    OrderID = 3,
+                    OrderPrice = 100.00,
+                    Customer = customer2,
+                    StoreFront = store3
+
+                };
                 context.Orders.AddRange(
-                        new Order
-                        {
-                            OrderID = 1,
-                            OrderPrice = 2.00,
-                            Customer = customer1,
-                            StoreFront = new StoreFront
-                            {
-                                StoreFrontAddress = "234 Shoppers Street",
-                                StoreFrontID = 1
-                            }
+                    order1,
+                    order2,
+                    order3
+                );
 
-                        },
-                        new Order
-                        {
-                            OrderID = 2,
-                            OrderPrice = 3.00,
-                            Customer = customer1,
-                            StoreFront = new StoreFront
-                            {
-                                StoreFrontAddress = "123 Disney Land",
-                                StoreFrontID = 2
-                            }
+                Product product1 = new Product
+                {
+                    ProductName = "Toy truck",
+                    ProductPrice = 5.00,
+                    ProductQuantity = 10,
+                    StoreFront = store1
+                };
+                Product product2 = new Product
+                {
+                    ProductName = "Toy boat",
+                    ProductPrice = 3.00,
+                    ProductQuantity = 11,
+                    StoreFront = store1
+                };
+                context.Products.AddRange(
+                    product1,
+                    product2
+                );
 
-                        },
-                        new Order
-                        {
-                            OrderID = 3,
-                            OrderPrice = 100.00,
-                            Customer = customer2,
-                            StoreFront = new StoreFront
-                            {
-                                StoreFrontAddress = "1337 Wall Mart Avenue",
-                                StoreFrontID = 3
-                            }
-
-                        }
-                    );
+                context.LineItems.AddRange(
+                    new LineItem
+                    {
+                        LineItemQuantity = 3,
+                        Order = order1,
+                        Product = product1
+                    },
+                    new LineItem
+                    {
+                        LineItemQuantity = 1,
+                        Order = order1,
+                        Product = product2
+                    }
+                );
 
                 context.SaveChanges();
             }
