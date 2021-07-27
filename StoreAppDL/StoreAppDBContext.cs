@@ -23,12 +23,7 @@ namespace StoreAppDL
         public DbSet<Manager> Managers { get; set; }
         public DbSet<StoreFront> StoreFronts { get; set; }
 
-        /*
-        protected override void OnConfiguring(DbContextOptionsBuilder p_options)
-        {
-            p_options.UseSqlServer("Server=tcp:wing-lin.database.windows.net,1433;Initial Catalog=WingDB;Persist Security Info=False;User ID=linwing84;Password=Monster7low;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-        }
-        */
+        
         
         protected override void OnModelCreating(ModelBuilder p_modelBuilder)
         {
