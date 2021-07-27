@@ -1,103 +1,115 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.ComponentModel.DataAnnotations;
 
 namespace StoreAppModel
 {
     public class Customer
     {
-        private string _name;
-        private string _address;
-        private string _email;
-        private string _phone;
-        private string _password;
+        [Key]
+        private int _customerID;
+        private string _customerName;
+        private string _customerAddress;
+        private string _customerEmail;
+        private string _customerPhone;
+        private string _customerPassword;
 
-        private List<LineItem> _orders;
+        private List<Order> _customerOrders;
 
         public Customer()
         { }
 
         public Customer(string p_name)
         {
-            _name = p_name;
+            _customerName = p_name;
         }
-        public int ID { get; set; }
-        public string Name { 
+        public int CustomerID { 
             get
             {
-                return _name;
+                return _customerID;
+            } 
+            set
+            {
+                _customerID = value;
+            } 
+        }
+        public string CustomerName { 
+            get
+            {
+                return _customerName;
             } 
 
             set
             {
-                _name = value;
+                _customerName = value;
             }
         }
-        public string Address {
+        public string CustomerAddress {
             get
             {
-                return _address;
+                return _customerAddress;
             } 
 
             set
             {
-                _address = value;
+                _customerAddress = value;
             }
 
         }
-        public string Email {
+        public string CustomerEmail {
             get
             {
-                return _email;
+                return _customerEmail;
             } 
 
             set
             {
-                _email = value;
+                _customerEmail = value;
             }
         }
-        public string Phone {
+        public string CustomerPhone {
             get
             {
-                return _phone;
+                return _customerPhone;
             } 
 
             set
             {
-                _phone = value;
+                _customerPhone = value;
             }
         }
 
-        public string Password{ 
+        public string CustomerPassword{ 
             get
             {
-                return _password;
+                return _customerPassword;
             }
 
             set
             {
-                _password = value;
+                _customerPassword = value;
             } 
         }
-        public List<LineItem> Orders {
+        public List<Order> CustomerOrders {
             get
             {
-                return _orders;
+                return _customerOrders;
             }
             set
             {
-                _orders = value;
+                _customerOrders = value;
             }
         }
 
-        public void AddOrder(LineItem p_order)
+        public void AddOrder(Order p_order)
         {
-            _orders.Add(p_order);
+            _customerOrders.Add(p_order);
         }
         
         public override string ToString()
         {
-            return $"Name: {_name}\nAddress: {_address}\nEmail: {_email}\nPhone: {_phone}";
+            return $"Name: {_customerName}\nAddress: {_customerAddress}\nEmail: {_customerEmail}\nPhone: {_customerPhone}";
         }
     }
 }
