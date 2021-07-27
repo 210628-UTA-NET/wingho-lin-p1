@@ -22,7 +22,7 @@ namespace StoreAppBL
         /// </summary>
         /// <param name="p_cust">This is the customer object that will be added to the database</param>
         /// <returns>Will return the customer object we just added</returns>
-        Customer AddCustomer(Customer p_cust);
+        bool AddCustomer(Customer p_cust);
 
         List<StoreFront> GetAllStoreFronts();
 

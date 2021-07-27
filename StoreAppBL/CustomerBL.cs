@@ -15,7 +15,7 @@ namespace StoreAppBL
             _repo = p_repo;
         }
 
-        public Customer AddCustomer(Customer p_cust)
+        public bool AddCustomer(Customer p_cust)
         {
             return _repo.AddCustomer(p_cust);
         }

@@ -15,12 +15,14 @@ namespace StoreAppDL
         /// <returns>Returns a list of Customers</returns>
         List<Customer> GetAllCustomer();
 
+        Customer GetCustomerByID(int p_custID);
+
         /// <summary>
         /// Adds a customer to the database
         /// </summary>
         /// <param name="p_cust">This is the customer object that will be added to the database</param>
         /// <returns>Will return the customer object we just added</returns>
-        Customer AddCustomer(Customer p_cust);
+        bool AddCustomer(Customer p_cust);
 
         List<StoreFront> GetAllStoreFronts();
 
