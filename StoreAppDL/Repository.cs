@@ -93,24 +93,12 @@ namespace StoreAppDL
 
         public List<int> GetStoreProductIDs(int p_storeID)
         {
-            List<int> productIDs = new List<int>();
-
-            List<Product> AllProducts = GetStoreProducts(p_storeID);
-            foreach (Product product in AllProducts)
-            {
-                productIDs.Add(product.ProductID);
-            }
-
-            return productIDs;
+            return _context.Products.Where(prod => prod.StoreFrontID == p_storeID).Select(prod => prod.ProductID).ToList();
         }
 
         public Product GetProductByID(int p_productID)
         {
-            Product product = new Product();
-
-            product = _context.Products.Find(p_productID);
-
-            return product;
+            return _context.Products.Find(p_productID); ;
         }
 
         public bool UpdateInventory(int p_productID, int addedQuantity)
@@ -173,6 +161,56 @@ namespace StoreAppDL
         public List<Customer> GetCustomersByName(string p_name)
         {
             return _context.Customers.Where(cust => cust.CustomerName.Contains(p_name)).Select(cust => cust).ToList();
+        }
+
+        public List<Order> GetCustomerOrdersSortedByCostAsc(int p_custID)
+        {
+            List<Order> orders;
+
+            orders = _context.Orders.Where(ord => ord.Customer.CustomerID == p_custID)
+                .OrderBy(ord => ord.OrderPrice).Select(ord => ord).ToList();
+
+            return orders;
+        }
+        public List<Order> GetCustomerOrdersSortedByCostDesc(int p_custID)
+        {
+            return _context.Orders.Where(ord => ord.Customer.CustomerID == p_custID)
+                .OrderByDescending(ord => ord.OrderPrice).Select(ord => ord).ToList();
+        }
+        public List<Order> GetStoreFrontOrdersSortedByCostAsc(int p_storeID)
+        {
+            return _context.Orders.Where(ord => ord.StoreFront.StoreFrontID == p_storeID)
+                .OrderBy(ord => ord.OrderPrice).Select(ord => ord).ToList();
+        }
+        public List<Order> GetStoreFrontOrdersSortedByCostDesc(int p_storeID)
+        {
+            return _context.Orders.Where(ord => ord.StoreFront.StoreFrontID == p_storeID)
+                .OrderByDescending(ord => ord.OrderPrice).Select(ord => ord).ToList();
+        }
+        public List<Order> GetCustomerOrdersSortedByDateAsc(int p_custID)
+        {
+            return _context.Orders.Where(ord => ord.Customer.CustomerID == p_custID)
+                .OrderBy(ord => ord.DatePlaced).Select(ord => ord).ToList();
+        }
+        public List<Order> GetCustomerOrdersSortedByDateDesc(int p_custID)
+        {
+            return _context.Orders.Where(ord => ord.Customer.CustomerID == p_custID)
+                .OrderByDescending(ord => ord.DatePlaced).Select(ord => ord).ToList();
+        }
+        public List<Order> GetStoreFrontOrdersSortedByDateAsc(int p_storeID)
+        {
+            return _context.Orders.Where(ord => ord.StoreFront.StoreFrontID == p_storeID)
+                .OrderBy(ord => ord.DatePlaced).Select(ord => ord).ToList();
+        }
+        public List<Order> GetStoreFrontOrdersSortedByDateDesc(int p_storeID)
+        {
+            return _context.Orders.Where(ord => ord.StoreFront.StoreFrontID == p_storeID)
+                .OrderByDescending(ord => ord.DatePlaced).Select(ord => ord).ToList();
+        }
+
+        public Manager GetManagerByID(int p_manID)
+        {
+            return _context.Managers.Find(p_manID);
         }
     }
 }

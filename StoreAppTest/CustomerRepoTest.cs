@@ -130,13 +130,15 @@ namespace StoreAppTest
                 {
                     OrderPrice = 300.00,
                     Customer = customer,
-                    StoreFront = storeFront
+                    StoreFront = storeFront,
+                    DatePlaced = DateTime.Now
                 };
                 Order order2 = new Order
                 {
                     OrderPrice = 50.00,
                     Customer = customer,
-                    StoreFront = storeFront
+                    StoreFront = storeFront,
+                    DatePlaced = DateTime.Now
                 };
 
                 repo.PlaceOrder(order1, order1.OrderPrice, customer.CustomerID);
@@ -203,7 +205,85 @@ namespace StoreAppTest
         }
 
         /// <summary>
-        /// This seeds (3) Customer and 3 Order data entries into a database (should be clean).
+        /// This tests if Customer Orders are returned sorted in ascending order by cost.
+        /// </summary>
+        [Fact]
+        public void GetOrdersSortedByCostAscShouldReturnOrdersSortedByCostAsc()
+        {
+            using (var context = new StoreAppDBContext(_options))
+            {
+                IRepository repo = new Repository(context);
+                List<Order> orders;
+
+                orders = repo.GetCustomerOrdersSortedByCostAsc(1);
+
+                Assert.Equal(3.00, orders[0].OrderPrice);
+                Assert.Equal(18.00, orders[1].OrderPrice);
+            }
+        }
+
+        /// <summary>
+        /// This tests if Customer Orders are returned sorted in descending order by cost.
+        /// </summary>
+        [Fact]
+        public void GetOrdersSortedByCostDescShouldReturnOrdersSortedByCostDesc()
+        {
+            using (var context = new StoreAppDBContext(_options))
+            {
+                IRepository repo = new Repository(context);
+                List<Order> orders;
+
+                orders = repo.GetCustomerOrdersSortedByCostDesc(1);
+
+                Assert.Equal(3.00, orders[1].OrderPrice);
+                Assert.Equal(18.00, orders[0].OrderPrice);
+            }
+        }
+
+        /// <summary>
+        /// This tests if Customer Orders are returned, sorted in ascending order by DatePlaced.
+        /// </summary>
+        [Fact]
+        public void GetOrdersSortedByDateAscShouldReturnOrdersSortedByDateAsc()
+        {
+            using (var context = new StoreAppDBContext(_options))
+            {
+                IRepository repo = new Repository(context);
+                List<Order> orders;
+
+                orders = repo.GetCustomerOrdersSortedByDateAsc(1);
+
+                Assert.Equal(new DateTime(2021, 1, 1), orders[0].DatePlaced);
+                Assert.Equal(new DateTime(2021, 2, 1), orders[1].DatePlaced);
+            }
+        }
+
+        /// <summary>
+        /// This tests if Customer Orders are returned sorted in descending order by cost.
+        /// </summary>
+        [Fact]
+        public void GetOrdersSortedByDateDescShouldReturnOrdersSortedByDateDesc()
+        {
+            using (var context = new StoreAppDBContext(_options))
+            {
+                IRepository repo = new Repository(context);
+                List<Order> orders;
+
+                orders = repo.GetCustomerOrdersSortedByDateDesc(1);
+
+                Assert.Equal(new DateTime(2021, 1, 1), orders[1].DatePlaced);
+                Assert.Equal(new DateTime(2021, 2, 1), orders[0].DatePlaced);
+            }
+        }
+
+        /// <summary>
+        /// This seeds 
+        /// (3) Customer
+        /// (3) StoreFronts
+        /// (3) Orders
+        /// (2) Products
+        /// (2) LineItems
+        /// into a database (should be clean).
         /// </summary>
         private void Seed()
         {
@@ -271,7 +351,8 @@ namespace StoreAppTest
                     OrderID = 1,
                     OrderPrice = 18.00,
                     Customer = customer1,
-                    StoreFront = store1
+                    StoreFront = store1,
+                    DatePlaced = new DateTime(2021, 1, 1)
 
                 };
                 Order order2 = new Order
@@ -279,7 +360,8 @@ namespace StoreAppTest
                     OrderID = 2,
                     OrderPrice = 3.00,
                     Customer = customer1,
-                    StoreFront = store2
+                    StoreFront = store2,
+                    DatePlaced = new DateTime(2021, 2, 1)
 
                 };
                 Order order3 = new Order

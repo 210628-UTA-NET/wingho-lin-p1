@@ -12,6 +12,7 @@ namespace StoreAppModel
         private StoreFront _storeFront;
         private double _orderPrice;
         private Customer _customer;
+
         public Order()
         { 
             _orderLineItems = new List<LineItem>();
@@ -59,6 +60,8 @@ namespace StoreAppModel
             }
         }
         public int OrderID { get; set; }
+
+        public DateTime DatePlaced { get; set; }
 
         public override string ToString()
         {

@@ -10,6 +10,11 @@ namespace StoreAppBL
         /// This should provide a dependency for all of the methods that will interact with the database.
         /// </summary>
         private IRepository _repo;
+        
+        /// <summary>
+        /// Constructor to bind and database context to BL instance
+        /// </summary>
+        /// <param name="p_repo">Repository context to interact with the database backend</param>
         public CustomerBL(IRepository p_repo)
         {
             _repo = p_repo;

@@ -22,7 +22,6 @@ namespace StoreAppDL
         public DbSet<Product> Products { get; set; }
         public DbSet<Manager> Managers { get; set; }
         public DbSet<StoreFront> StoreFronts { get; set; }
-
         
         
         protected override void OnModelCreating(ModelBuilder p_modelBuilder)

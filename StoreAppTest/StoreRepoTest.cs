@@ -177,7 +177,121 @@ namespace StoreAppTest
         }
 
         /// <summary>
-        /// This seeds (2) StoreFront, (2) Products, and (3) Order data entries into a database (should be clean).
+        /// This should return a List of Managers.
+        /// </summary>
+        [Fact]
+        public void GetAllManagersShouldReturnAllManagers()
+        {
+            using (var context = new StoreAppDBContext(_options))
+            {
+                IRepository repo = new Repository(context);
+                List<Manager> managers;
+
+                managers = repo.GetAllManagers();
+
+                Assert.NotNull(managers);
+                Assert.Equal(2, managers.Count);
+            }
+        }
+
+        /// <summary>
+        /// This tests if StoreFront Orders are returned sorted in ascending order by cost.
+        /// </summary>
+        [Fact]
+        public void GetOrdersSortedByCostAscShouldReturnOrdersSortedByCostAsc()
+        {
+            using (var context = new StoreAppDBContext(_options))
+            {
+                IRepository repo = new Repository(context);
+                List<Order> orders;
+
+                orders = repo.GetStoreFrontOrdersSortedByCostAsc(2);
+
+                Assert.Equal(4.00, orders[0].OrderPrice);
+                Assert.Equal(6.00, orders[1].OrderPrice);
+            }
+        }
+
+        /// <summary>
+        /// This tests if StoreFront Orders are returned sorted in descending order by cost.
+        /// </summary>
+        [Fact]
+        public void GetOrdersSortedByCostDescShouldReturnOrdersSortedByCostDesc()
+        {
+            using (var context = new StoreAppDBContext(_options))
+            {
+                IRepository repo = new Repository(context);
+                List<Order> orders;
+
+                orders = repo.GetStoreFrontOrdersSortedByCostDesc(2);
+
+                Assert.Equal(4.00, orders[1].OrderPrice);
+                Assert.Equal(6.00, orders[0].OrderPrice);
+            }
+        }
+
+        /// <summary>
+        /// This tests if StoreFront Orders are returned, sorted in ascending order by DatePlaced.
+        /// </summary>
+        [Fact]
+        public void GetOrdersSortedByDateAscShouldReturnOrdersSortedByDateAsc()
+        {
+            using (var context = new StoreAppDBContext(_options))
+            {
+                IRepository repo = new Repository(context);
+                List<Order> orders;
+
+                orders = repo.GetStoreFrontOrdersSortedByDateAsc(2);
+
+                Assert.Equal(new DateTime(2021, 1, 1), orders[0].DatePlaced);
+                Assert.Equal(new DateTime(2021, 2, 1), orders[1].DatePlaced);
+            }
+        }
+
+        /// <summary>
+        /// This tests if StoreFront Orders are returned sorted in descending order by DatePlaced.
+        /// </summary>
+        [Fact]
+        public void GetOrdersSortedByDateDescShouldReturnOrdersSortedByDateDesc()
+        {
+            using (var context = new StoreAppDBContext(_options))
+            {
+                IRepository repo = new Repository(context);
+                List<Order> orders;
+
+                orders = repo.GetStoreFrontOrdersSortedByDateDesc(2);
+
+                Assert.Equal(new DateTime(2021, 1, 1), orders[1].DatePlaced);
+                Assert.Equal(new DateTime(2021, 2, 1), orders[0].DatePlaced);
+            }
+        }
+
+        /// <summary>
+        /// This tests retrieving a manager by ManagerID.
+        /// </summary>
+        [Fact]
+        public void GetManagerByIDShouldReturnManager()
+        {
+            using (var context = new StoreAppDBContext(_options))
+            {
+                IRepository repo = new Repository(context);
+                Manager manager;
+
+                manager = repo.GetManagerByID(1);
+
+                Assert.NotNull(manager);
+                Assert.Equal("Chris", manager.ManagerName);
+                Assert.Equal("ChrisManager", manager.ManagerUsername);
+            }
+        }
+
+        /// <summary>
+        /// This seeds 
+        /// (2) StoreFronts
+        /// (3) Orders
+        /// (3) Products
+        /// (2) Managers
+        /// into a database (should be clean).
         /// </summary>
         private void Seed()
         {
@@ -228,39 +342,55 @@ namespace StoreAppTest
                 );
 
                 context.Orders.AddRange(
-                        new Order
+                    new Order
+                    {
+                        OrderID = 1,
+                        OrderPrice = 4.00,
+                        StoreFront = store2,
+                        DatePlaced = new DateTime(2021, 1, 1),
+                        Customer = new Customer
                         {
-                            OrderID = 1,
-                            OrderPrice = 4.00,
-                            StoreFront = store2,
-                            Customer = new Customer
-                            {
-                                CustomerID = 1
-                            }
-                        },
-                        new Order
-                        {
-                            OrderID = 2,
-                            OrderPrice = 6.00,
-                            StoreFront = store2,
-                            Customer = new Customer
-                            {
-                                CustomerID = 2
-                            }
-
-                        },
-                        new Order
-                        {
-                            OrderID = 3,
-                            OrderPrice = 100.00,
-                            StoreFront = store1,
-                            Customer = new Customer
-                            {
-                                CustomerID = 3
-                            }
-
+                            CustomerID = 1
                         }
-                    );
+                    },
+                    new Order
+                    {
+                        OrderID = 2,
+                        OrderPrice = 6.00,
+                        StoreFront = store2,
+                        DatePlaced = new DateTime(2021, 2, 1),
+                        Customer = new Customer
+                        {
+                            CustomerID = 2
+                        }
+
+                    },
+                    new Order
+                    {
+                        OrderID = 3,
+                        OrderPrice = 100.00,
+                        StoreFront = store1,
+                        DatePlaced = new DateTime(2021, 3, 1),
+                        Customer = new Customer
+                        {
+                            CustomerID = 3
+                        }
+
+                    }
+                );
+
+                context.Managers.AddRange(
+                    new Manager
+                    {
+                        ManagerName = "Chris",
+                        ManagerUsername = "ChrisManager"
+                    },
+                    new Manager
+                    {
+                        ManagerName = "Tim",
+                        ManagerUsername = "TimManager"
+                    }
+                );
 
                 context.SaveChanges();
             }
