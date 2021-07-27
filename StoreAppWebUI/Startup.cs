@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StoreAppDL;
+using StoreAppBL;
 
 namespace StoreAppWebUI
 {
@@ -28,7 +29,7 @@ namespace StoreAppWebUI
             services.AddControllersWithViews();
 
             services.AddDbContext<StoreAppDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Reference2DB")));
-            services.AddScoped<IRepository.Repository>();
+            services.AddScoped<IRepository, Repository>();
             services.AddScoped<ICustomerBL, CustomerBL>();
         }
 
