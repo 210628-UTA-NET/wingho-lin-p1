@@ -394,3 +394,6 @@ FodyWeavers.xsd
 
 # End of https://www.toptal.com/developers/gitignore/api/csharp
 StoreAppUI/appsetting.json
+StoreAppWebUI/appsettings.json
+StoreAppDL/connection
+StoreAppWebUI/appsettings.json

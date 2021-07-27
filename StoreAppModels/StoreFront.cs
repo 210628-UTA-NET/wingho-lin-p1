@@ -1,16 +1,18 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace StoreAppModel
 {
     public class StoreFront
     {
+        [Key]
+        private int _storeFrontID;
         private string _storeFrontName;
         private string _storeFrontAddress;
         private List<LineItem> _inventory;
-        private List<Order> _orders;
-        private int _storeFrontID;
-
+        private List<Order> _storeFrontOrders;
+        
         public int StoreFrontID 
         { 
             get
@@ -22,7 +24,7 @@ namespace StoreAppModel
                 _storeFrontID = value;
             }
         }
-        public string Name { 
+        public string StoreFrontName { 
             get
             {
                 return _storeFrontName;
@@ -32,7 +34,7 @@ namespace StoreAppModel
                 _storeFrontName = value;
             }
         }
-        public string Address { 
+        public string StoreFrontAddress { 
             get
             {
                 return _storeFrontAddress;
@@ -45,7 +47,17 @@ namespace StoreAppModel
 
         private void AddOrder(Order p_order)
         {
-            _orders.Add(p_order);
+            _storeFrontOrders.Add(p_order);
+        }
+        public List<Order> StoreFrontOrders { 
+            get
+            {
+                return _storeFrontOrders;
+            } 
+            set
+            {
+                _storeFrontOrders = value;
+            }
         }
 
         public override string ToString()

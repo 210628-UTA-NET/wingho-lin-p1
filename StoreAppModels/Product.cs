@@ -5,31 +5,32 @@ namespace StoreAppModel
 {
     public class Product
     {
-        private string _name;
-        private double _price;
+        private string _productName;
+        private double _productPrice;
         private int _productID;
-        private int _storeID;
+        private StoreFront _storeFront;
+        private int _productQuantity;
         public Product()
         { }
 
-        public string Name {
+        public string ProductName {
             get 
             {
-                return _name;
+                return _productName;
             }
             set 
             {
-                _name = value;
+                _productName = value;
             }
         }
-        public double Price {
+        public double ProductPrice {
             get 
             {
-                return _price;
+                return _productPrice;
             }
             set 
             {
-                _price = value;
+                _productPrice = value;
             }
         }
 
@@ -43,22 +44,30 @@ namespace StoreAppModel
                 _productID = value;
             }
         }
-        public int StoreID {
+        public StoreFront StoreFront {
             get 
             {
-                return _storeID;
+                return _storeFront;
             }
             set 
             {
-                _storeID = value;
+                _storeFront = value;
+            }
+        }
+        public int ProductQuantity {
+            get
+            {
+                return _productQuantity;
+            }
+            set
+            {
+                _productQuantity = value;
             }
         }
 
-        public int Quantity { get; set; }
-
         public override string ToString()
         {
-            return $"Product ID: {_productID}\nProduct Name: {_name}\nPrice: ${_price}";
+            return $"Product ID: {_productID}\nProduct Name: {_productName}\nPrice: ${_productPrice}\nQuantity: {_productQuantity}";
         }
         
     }

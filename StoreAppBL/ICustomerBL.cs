@@ -22,7 +22,7 @@ namespace StoreAppBL
         /// </summary>
         /// <param name="p_cust">This is the customer object that will be added to the database</param>
         /// <returns>Will return the customer object we just added</returns>
-        Customer AddCustomer(Customer p_cust);
+        bool AddCustomer(Customer p_cust);
 
         List<StoreFront> GetAllStoreFronts();
 
@@ -32,15 +32,12 @@ namespace StoreAppBL
 
         List<Product> GetStoreProducts(int p_storeID);
 
-        List<LineItem> GetAllStoreInventory();
-
-        List<LineItem> GetStoreInventory(int p_storeID);
-
+        List<int> GetStoreProductIDs(int p_storeID);
         List<Manager> GetAllManagers();
         
         List<Order> GetStoreFrontOrders(int p_storeID);
 
-        bool ReplenishInventory(int p_productID, int addedQuantity);
+        bool UpdateInventory(int p_productID, int addedQuantity);
         bool PlaceOrder(StoreAppModel.Order p_order, double p_price, int p_custID);
 
         string GetStoreLocation(int p_storeID);

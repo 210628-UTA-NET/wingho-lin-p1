@@ -12,8 +12,7 @@ namespace StoreAppUI
         private ICustomerBL _custBL;
         private int Quantity = 0;
         private int ProductID;
-        List<LineItem> Inventory = new List<LineItem>();
-        List<Product> Products = new List<Product>();
+        List<Product> Inventory = new List<Product>();
         bool ReplenishSuccess = false;
         public void copyCookie(Manager cookie)
         {
@@ -49,59 +48,55 @@ namespace StoreAppUI
             {
                 case "1":
                     //Console.WriteLine("restock");
-                    Inventory = _custBL.GetStoreInventory(manager.StoreID);
-                    Products = _custBL.GetStoreProducts(manager.StoreID);
-                    Console.WriteLine("List of Store's inventory:\n"+ASCII.ListDelimiter);
-                    foreach (LineItem item in Inventory)
+                    Inventory = _custBL.GetStoreProducts(manager.StoreID);
+                    if (Inventory.Count > 0)
                     {
-                        Console.WriteLine(item.ToString());
+                        Console.WriteLine("List of Store's inventory:\n"+ASCII.ListDelimiter);
 
-                        // find and print out price since LineItem type doesn't hold price
-                        foreach (Product product in Products)
+                        foreach (Product item in Inventory)
                         {
-                            if (item.ProductID == product.ProductID)
-                            {
-                                Console.WriteLine($"Price: ${product.Price}");
-                            }
+                            Console.WriteLine(item.ToString());
+                            Console.WriteLine(ASCII.ListDelimiter);
                         }
-                        Console.WriteLine(ASCII.ListDelimiter);
-                    }
 
-                    Console.Write("Choose a product ID and an amount to restock/add.\nProduct ID: ");
+                        Console.Write("Choose a product ID and an amount to restock/add.\nProduct ID: ");
 
-                    ProductID = int.Parse(Console.ReadLine());
-                    Console.Write("Quantity: ");
-                    Quantity = int.Parse(Console.ReadLine());
-                    ReplenishSuccess = _custBL.ReplenishInventory(ProductID, Quantity);
-                    if (ReplenishSuccess)
-                    {
-                        Console.WriteLine("Replenished successfully!\nPress Enter to continue.");
-                        Console.ReadLine();
+                        ProductID = int.Parse(Console.ReadLine());
+                        Console.Write("Quantity: ");
+                        Quantity = int.Parse(Console.ReadLine());
+                        ReplenishSuccess = _custBL.UpdateInventory(ProductID, Quantity);
+                        if (ReplenishSuccess)
+                        {
+                            Console.WriteLine("Replenished successfully!\nPress Enter to continue.");
+                            Console.ReadLine();
+                        } else
+                        {
+                            Console.WriteLine("Replenish failed!\nPress Enter to continue and try again later.");
+                            Console.ReadLine();
+                        }
+
                     } else
                     {
-                        Console.WriteLine("Replenish failed!\nPress Enter to continue and try again later.");
-                        Console.ReadLine();
+                        Console.WriteLine("This store doesn't have any items to offer yet!");
                     }
+
+                    
                     return MenuType.ManagerMenu;
                 case "2":
-                    Inventory = _custBL.GetStoreInventory(manager.StoreID);
-                    Products = _custBL.GetStoreProducts(manager.StoreID);
-                    Console.WriteLine("List of Store's inventory:\n"+ASCII.ListDelimiter);
-                    foreach (LineItem item in Inventory)
+                    Inventory = _custBL.GetStoreProducts(manager.StoreID);
+                    if (Inventory.Count > 0)
                     {
-                        Console.WriteLine(item.ToString());
-
-                        // find and print out price since LineItem type doesn't hold price
-                        foreach (Product product in Products)
+                        Console.WriteLine("List of Store's inventory:\n"+ASCII.ListDelimiter);
+                        foreach (Product item in Inventory)
                         {
-                            if (item.ProductID == product.ProductID)
-                            {
-                                Console.WriteLine($"Price: ${product.Price}");
-                            }
+                            Console.WriteLine(item.ToString());
+                            Console.WriteLine(ASCII.ListDelimiter);
                         }
-                        Console.WriteLine(ASCII.ListDelimiter);
+                    } else
+                    {
+                        Console.WriteLine("This store doesn't have any items to offer yet!");
                     }
-
+                    
                     Console.WriteLine("Press Enter to continue...");
                     Console.ReadLine();
                     return MenuType.ManagerMenu;

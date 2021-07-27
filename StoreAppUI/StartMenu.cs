@@ -6,7 +6,7 @@ namespace StoreAppUI
 {
     public class StartMenu : IMenu
     {
-        private ICustomerBL _custBL;
+        //private ICustomerBL _custBL;
         
         public void Menu()
         {

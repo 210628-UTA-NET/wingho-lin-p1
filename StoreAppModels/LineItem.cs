@@ -1,50 +1,63 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace StoreAppModel
 {
     public class LineItem
     {
-        private string _productName;
-        private int _quantity;
-        private int _productID;
+        [Key]
+        private int _lineItemID;
+        private int _lineItemQuantity;
+        private Product _product;
+        private Order _order;
         public LineItem()
         { }
 
-        public string ProductName {
-            get 
+        public int LineItemID {
+            get
             {
-                return _productName;
+                return _lineItemID;
             }
-            set 
+            set
             {
-                _productName = value;
-            }
-        }
-        public int Quantity {
-            get 
-            {
-                return _quantity;
-            }
-            set 
-            {
-                _quantity = value;
+                _lineItemID = value;
             }
         }
-        public int ProductID {
+        public int LineItemQuantity {
             get 
             {
-                return _productID;
+                return _lineItemQuantity;
             }
             set 
             {
-                _productID = value;
+                _lineItemQuantity = value;
+            }
+        }
+        public Product Product {
+            get 
+            {
+                return _product;
+            }
+            set 
+            {
+                _product = value;
+            }
+        }
+        public Order Order {
+            get
+            {
+                return _order;
+            }
+            set
+            {
+                _order = value;
             }
         }
 
         public override string ToString()
         {
-            return $"Product ID: {_productID}\nProduct Name: {_productName}\nQuantity: {Quantity}";
+            return $"Product ID: {_product.ProductID}\nProduct Name: {_product.ProductName}\nQuantity: {_lineItemQuantity}";
         }
     }
 }

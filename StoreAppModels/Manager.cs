@@ -1,52 +1,65 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace StoreAppModel
 {
     public class Manager
     {
-        private string _name;
-        private string _username;
-        private int _storeID;
+        [Key]
+        private int _managerID;
+        private string _managerName;
+        private string _managerUsername;
+        private StoreFront _storeFront;
 
-        public int ID { get; set; }
-        public string Name { 
-            get
-            {
-                return _name;
-            } 
-            set
-            {
-                _name = value;
-            }
-        }
-        public string Password { get; set; }
-        public int StoreID 
+        public int ManagerID 
         { 
             get
             {
-                return _storeID;
+                return _managerID;
+            }
+            set
+            {
+                _managerID = value;
+            } 
+        }
+        public string ManagerName { 
+            get
+            {
+                return _managerName;
             } 
             set
             {
-                _storeID = value;
+                _managerName = value;
             }
         }
-        public string Username 
+        public string ManagerPassword { get; set; }
+        public StoreFront StoreFront
         { 
             get
             {
-                return _username;
+                return _storeFront;
             } 
             set
             {
-                _username = value;
+                _storeFront = value;
+            }
+        }
+        public string ManagerUsername 
+        { 
+            get
+            {
+                return _managerUsername;
+            } 
+            set
+            {
+                _managerUsername = value;
             }
         }
 
         public override string ToString()
         {
-            return $"Name: {_name}\nUsername: {_username}\nStore ID: {_storeID}";
+            return $"Name: {_managerName}\nUsername: {_managerUsername}\nStore ID: {_storeFront.StoreFrontID}";
         }
     }
 }

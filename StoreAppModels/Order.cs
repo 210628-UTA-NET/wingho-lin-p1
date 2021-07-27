@@ -1,13 +1,17 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace StoreAppModel
 {
     public class Order
     {
+        [Key]
+        private int _orderID;
         private List<LineItem> _orderLineItems;
-        private string _location;
-        private double _totalPrice;
+        private StoreFront _storeFront;
+        private double _orderPrice;
+        private Customer _customer;
         public Order()
         { 
             _orderLineItems = new List<LineItem>();
@@ -23,33 +27,42 @@ namespace StoreAppModel
                 _orderLineItems = value;
             }
         }
-        public string Location {
+        public StoreFront StoreFront {
             get 
             {
-                return _location;
+                return _storeFront;
             }
             set 
             {
-                _location = value;
+                _storeFront = value;
             }
         }
-        public double TotalPrice {
+        public double OrderPrice {
             get 
             {
-                return _totalPrice;
+                return _orderPrice;
             }
             set 
             {
-                _totalPrice = value;
+                _orderPrice = value;
             }
         }
 
-        public int CustomerID { get; set; }
+        public Customer Customer { 
+            get
+            {
+                return _customer;
+            }
+            set
+            {
+                _customer = value;
+            }
+        }
         public int OrderID { get; set; }
 
         public override string ToString()
         {
-            return $"Order ID: {OrderID}\nTotal: ${_totalPrice}\nLocation: {_location}";
+            return $"Order ID: {_orderID}\nTotal: ${_orderPrice}\nLocation: {_storeFront.StoreFrontAddress}";
         }
 
         public void AddOrderLineItem(LineItem item)

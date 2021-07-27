@@ -84,6 +84,7 @@ namespace StoreAppUI
                     return MenuType.PlaceOrderMenu;
                 case "4":
                     location = _custBL.GetStoreLocation(StoreID);
+                    CurrentOrder.Location = location;
                     if (_custBL.PlaceOrder(CurrentOrder, PriceTotal,customer.ID))
                     {
                         Console.WriteLine("Order was placed succesfully!\nPress Enter to be returned to Customer Menu");
