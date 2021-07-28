@@ -276,6 +276,9 @@ namespace StoreAppTest
             }
         }
 
+        /// <summary>
+        /// This tests adding a LineItem to the LineItems table and checks that it persists
+        /// </summary>
         [Fact]
         public void AddLineItemShouldPersist()
         {
@@ -285,9 +288,7 @@ namespace StoreAppTest
                 LineItem lineItem = new LineItem
                 {
                     LineItemQuantity = 3,
-                    Order = new Order { 
-                        OrderID = repo.GetNextOrderID()
-                    },
+                    Order = repo.GetOrderByID(2),
                     Product = repo.GetProductByID(1)
                 };
 
