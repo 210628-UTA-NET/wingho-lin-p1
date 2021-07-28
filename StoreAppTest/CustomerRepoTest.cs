@@ -276,6 +276,30 @@ namespace StoreAppTest
             }
         }
 
+        [Fact]
+        public void AddLineItemShouldPersist()
+        {
+            using (var context = new StoreAppDBContext(_options))
+            {
+                IRepository repo = new Repository(context);
+                LineItem lineItem = new LineItem
+                {
+                    LineItemQuantity = 3,
+                    Order = new Order { 
+                        OrderID = repo.GetNextOrderID()
+                    },
+                    Product = repo.GetProductByID(1)
+                };
+
+                lineItem = repo.AddLineItem(lineItem);
+                lineItem = repo.GetLineItemByID(3);
+
+                Assert.NotNull(lineItem);
+                Assert.Equal(1, lineItem.Product.ProductID);
+                Assert.Equal(3, lineItem.LineItemQuantity);
+            }
+        }
+
         /// <summary>
         /// This seeds 
         /// (3) Customer

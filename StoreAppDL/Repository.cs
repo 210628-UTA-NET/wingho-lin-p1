@@ -212,5 +212,23 @@ namespace StoreAppDL
         {
             return _context.Managers.Find(p_manID);
         }
+
+        public LineItem AddLineItem(LineItem p_lineItem)
+        {
+            _context.LineItems.Add(p_lineItem);
+            _context.SaveChanges();
+
+            return p_lineItem;
+        }
+
+        public int GetNextOrderID()
+        {
+            return _context.Orders.Select(ord => ord.OrderID).Count() + 1;
+        }
+
+        public LineItem GetLineItemByID(int p_lineItemID)
+        {
+            return _context.LineItems.Find(p_lineItemID);
+        }
     }
 }
