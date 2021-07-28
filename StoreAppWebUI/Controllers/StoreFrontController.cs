@@ -24,9 +24,9 @@ namespace StoreAppWebUI.Controllers
                 .ToList()
             );
         }
-        public IActionResult View(int p_StoreFrontID)
+        public IActionResult View(int p_storeID)
         {
-            return View(_custBL.GetStoreProducts(p_StoreFrontID)
+            return View(_custBL.GetStoreProducts(p_storeID)
                 .Select(prod => new StoreAppWebUI.Models.ProductVM(prod))
                 .ToList());
         }
@@ -46,32 +46,47 @@ namespace StoreAppWebUI.Controllers
 
         }
         
-        public IActionResult OrderByPriceAsc(int p_StoreID)
+        public IActionResult OrderOptions(int p_storeID)
         {
-            List<StoreAppModel.Order> custOrders = _custBL.GetStoreFrontOrdersSortedByCostAsc(p_StoreID);
-
-            return View(new StoreAppWebUI.Models.OrderViewVM(custOrders));
+            return View(p_storeID);
         }
 
-        public IActionResult OrderByPriceDesc(int p_StoreID)
+        public IActionResult OrderByPriceAsc(int p_storeID)
         {
-            List<StoreAppModel.Order> custOrders = _custBL.GetStoreFrontOrdersSortedByCostDesc(p_StoreID);
-
-            return View(new StoreAppWebUI.Models.OrderViewVM(custOrders));
+            return View(_custBL.GetStoreFrontOrdersSortedByCostAsc(p_storeID)
+                .Select(order => new StoreAppWebUI.Models.OrderVM(order))
+                .ToList());
         }
 
-        public IActionResult OrderByDateAsc(int p_StoreID)
+        public IActionResult OrderByPriceDesc(int p_storeID)
         {
-            List<StoreAppModel.Order> custOrders = _custBL.GetStoreFrontOrdersSortedByDateAsc(p_StoreID);
-
-            return View(new StoreAppWebUI.Models.OrderViewVM(custOrders));
+            return View(_custBL.GetStoreFrontOrdersSortedByCostDesc(p_storeID)
+                .Select(order => new StoreAppWebUI.Models.OrderVM(order))
+                .ToList());
         }
 
-        public IActionResult OrderByDateDesc(int p_StoreID)
+        public IActionResult OrderByDateAsc(int p_storeID)
         {
-            List<StoreAppModel.Order> custOrders = _custBL.GetStoreFrontOrdersSortedByDateDesc(p_StoreID);
+            return View(_custBL.GetStoreFrontOrdersSortedByDateAsc(p_storeID)
+                .Select(order => new StoreAppWebUI.Models.OrderVM(order))
+                .ToList());
+        }
 
-            return View(new StoreAppWebUI.Models.OrderViewVM(custOrders));
+        public IActionResult OrderByDateDesc(int p_storeID)
+        {
+            return View(_custBL.GetStoreFrontOrdersSortedByDateDesc(p_storeID)
+                .Select(order => new StoreAppWebUI.Models.OrderVM(order))
+                .ToList());
+        }
+
+        public IActionResult Replenish()
+        {
+            return View();
+        }
+
+        public IActionResult OrderDetails()
+        {
+            return View();
         }
     }
 }

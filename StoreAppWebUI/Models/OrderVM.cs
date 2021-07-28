@@ -22,7 +22,7 @@ namespace StoreAppWebUI.Models
         {
             ID = p_order.OrderID;
             Price = p_order.OrderPrice;
-            StoreFrontID = p_order.StoreFront.StoreFrontID;
+            StoreFrontID = p_order.StoreFrontID;
             DatePlaced = p_order.DatePlaced;
         }
     }

@@ -61,6 +61,8 @@ namespace StoreAppModel
         }
         public int OrderID { get; set; }
 
+        public int StoreFrontID { get; set; }
+
         public DateTime DatePlaced { get; set; }
 
         public override string ToString()

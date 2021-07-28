@@ -9,7 +9,7 @@
     <title>Document</title>
 </head>
 <body>
-    <table class="table-primary">
+    <table class="table table-dark table-striped">
         <thead>
             <tr>
                 <th>ID</th>
@@ -20,7 +20,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr class="table-primary">
+                <tr >
                     <td>
                         @Html.DisplayFor(modelItem => item.ID)
                     </td>
@@ -31,7 +31,10 @@
                         @Html.DisplayFor(modelItem => item.Address)
                     </td>
                     <td>
-                        @Html.ActionLink("View Inventory", "View", new {p_StoreFrontID = item.ID}, new  {@class = "btn-secondary"})
+                        @Html.ActionLink("View Inventory", "View", new {p_storeID = item.ID}, new  {@class = "btn-secondary"})
+                    </td>
+                    <td>
+                        @Html.ActionLink("Order History", "OrderOptions", new {p_storeID = item.ID}, new  {@class = "btn-secondary"})
                     </td>
                 </tr>
             }

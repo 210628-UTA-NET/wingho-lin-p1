@@ -1,2 +1,3 @@
 2021-07-28 02:42:02.425 -06:00 [INF] New Customer added: Name:Bob, Email: bob@gmail.com, Phone: 1231231234
 2021-07-28 03:02:31.947 -06:00 [INF] New Customer added: Name:billyBob, Email: bb@gmail.com, Phone: 3213213214
+2021-07-28 06:36:54.835 -06:00 [INF] New Customer added: Name:Jane, Email: jane@gmail.com, Phone: 1234123412

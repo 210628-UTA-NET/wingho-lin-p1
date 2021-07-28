@@ -14,9 +14,9 @@
     <a type="button" class="btn btn-secondary" asp-action="SearchPrompt">Search Customer</a>
 
     <!-- table to list all the customers in the database-->
-    <table class="table-primary">
+    <table class="table table-dark table-striped">
         <thead>
-            <tr class="table-primary">
+            <tr>
                 <th>Name</th>
                 <th>Address</th>
                 <th>Email</th>
@@ -27,24 +27,24 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr class="table-primary">
-                    <td class="table-primary">
+                <tr>
+                    <td>
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
-                    <td class="table-primary">
+                    <td>
                         @Html.DisplayFor(modelItem => item.Address)
                     </td>
-                    <td class="table-primary">
+                    <td >
                         @Html.DisplayFor(modelItem => item.Email)
                     </td>
-                    <td class="table-primary">  
+                    <td >  
                         @Html.DisplayFor(modelItem => item.PhoneNumber)
                     </td>
-                    <td class="table-primary">
-                        @Html.ActionLink("Place Order", "SelectStore", new {p_id = item.ID}, new { @style = "color:white;", @class = "btn btn-secondary" })
+                    <td >
+                        @Html.ActionLink("Place Order", "SelectStore", new {p_custID = item.ID}, new { @style = "color:white;", @class = "btn btn-secondary" })
                     </td>
-                    <td class="table-primary">  
-                        @Html.ActionLink("Order History", "OrderOptions", new {p_id = item.ID}, new { @style = "color:white;", @class = "btn btn-secondary" })
+                    <td >  
+                        @Html.ActionLink("Order History", "OrderOptions", new {p_custID = item.ID}, new { @style = "color:white;", @class = "btn btn-secondary" })
                     </td>
                 </tr>
             }

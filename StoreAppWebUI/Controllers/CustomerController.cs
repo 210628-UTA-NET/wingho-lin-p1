@@ -105,5 +105,15 @@ namespace StoreAppWebUI.Controllers
                 .Select(order => new StoreAppWebUI.Models.OrderVM(order))
                 .ToList());
         }
+
+        public IActionResult SelectStore()
+        {
+            return View();
+        }
+
+        public IActionResult OrderDetails()
+        {
+            return View();
+        }
     }
 }
