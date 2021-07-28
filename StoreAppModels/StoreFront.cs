@@ -10,7 +10,7 @@ namespace StoreAppModel
         private int _storeFrontID;
         private string _storeFrontName;
         private string _storeFrontAddress;
-        private List<LineItem> _inventory;
+        private List<Product> _inventory;
         private List<Order> _storeFrontOrders;
         
         public int StoreFrontID 
@@ -42,6 +42,17 @@ namespace StoreAppModel
             set
             {
                 _storeFrontAddress = value;
+            }
+        }
+
+        public List<Product> Inventory {
+            get
+            {
+                return _inventory;
+            }
+            set
+            {
+                _inventory = value;
             }
         }
 

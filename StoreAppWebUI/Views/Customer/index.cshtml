@@ -1,0 +1,51 @@
+@model IEnumerable<StoreAppWebUI.Models.CustomerVM>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Customer Page</title>
+</head>
+<body>
+    <h1>Customer Home Page</h1>
+
+    <a type="button" class="btn btn-secondary" asp-action="Add">Add Customer</a>
+
+    <a type="button" class="btn btn-secondary" asp-action="SearchPrompt">Search Customer</a>
+
+    <!-- table to list all the customers in the database-->
+    <table class="table-primary">
+        <thead>
+            <tr class="table-primary">
+                <th>Name</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="table-primary">
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNumber)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Place Order", "SelectStore", new {p_id = item.ID}, new { @style = "color:white;", @class = "btn btn-primary" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</body>
+</html>
