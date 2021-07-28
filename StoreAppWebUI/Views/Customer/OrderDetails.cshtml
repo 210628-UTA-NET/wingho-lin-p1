@@ -1,6 +1,42 @@
-@{
-    ViewData["Title"] = "Detailed Order View";
-}
-<h1>@ViewData["Title"]</h1>
+@model IEnumerable<StoreAppWebUI.Models.LineItemVM>
 
-<p>Oops! This feature is still under work!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Orders By Date (desc)</h2>
+     
+        <table class="table table-dark table-striped">
+            <thead>
+                <tr>
+                    <th>Product Name</th>
+                    <th>Product Price</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(li => item.Product.ProductName)
+                        </td>
+                        <td>
+                            $@Html.DisplayFor(li => item.Product.ProductPrice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(li => item.Quantity)
+                        </td>
+                    </tr>
+                
+                }
+            </tbody>
+        </table>
+    
+</body>
+</html>

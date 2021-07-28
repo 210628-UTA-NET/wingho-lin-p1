@@ -63,6 +63,13 @@ namespace StoreAppWebUI.Controllers
         [HttpPost]
         public IActionResult Search(StoreAppWebUI.Models.CustomerVM p_customer)
         {
+            if (p_customer.Name == "" || p_customer.Name == null)
+            {
+                return View(_customerBL.GetAllCustomer()
+                .Select(customer => new StoreAppWebUI.Models.CustomerVM(customer))
+                .ToList());
+            }
+            
             return View(_customerBL.GetCustomersByName(p_customer.Name)
                 .Select(customer => new StoreAppWebUI.Models.CustomerVM(customer))
                 .ToList());

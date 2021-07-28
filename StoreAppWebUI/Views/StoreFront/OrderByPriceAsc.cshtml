@@ -37,7 +37,7 @@
                             Date Placed: @Html.DisplayFor(ord => order.DatePlaced)
                         </td>
                         <td>
-                            @Html.ActionLink("Order Details", "OrderDetails", new {p_id = order.ID}, new { @style = "color:white;", @class = "btn btn-secondary" })
+                            @Html.ActionLink("Order Details", "OrderDetails", new {p_orderID = order.ID}, new { @style = "color:white;", @class = "btn btn-secondary" })
                         </td>
                     </tr>
                 

@@ -84,9 +84,11 @@ namespace StoreAppWebUI.Controllers
             return View();
         }
 
-        public IActionResult OrderDetails()
+        public IActionResult OrderDetails(int p_orderID)
         {
-            return View();
+            return View(_custBL.GetLineItemsByOrderID(p_orderID)
+                .Select(li => new StoreAppWebUI.Models.LineItemVM(li))
+                .ToList());
         }
     }
 }
