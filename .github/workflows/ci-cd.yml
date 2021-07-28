@@ -22,7 +22,7 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore
     - name: publish
-      run: dotnet publish StoreWebUI/ --configuration Release -o ./publish
+      run: dotnet publish StoreAppWebUI/ --configuration Release -o ./publish
     - name: deploy
       uses: azure/webapps-deploy@v2
       with: 
