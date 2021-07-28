@@ -15,22 +15,22 @@
     <form class="row g-3" asp-action="AddCustomer">
         <div class="col-mb-3">
             <label asp-for="Name" class="form-label">Name</label>
-            <input asp-for="Name" type="text" class="form-control" id="name">
+            <input asp-for="Name" type="text" class="form-control" id="name" required="required">
             <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <div class="col-mb-3">
             <label asp-for="PhoneNumber" class="form-label">Phone Number</label>
-            <input asp-for="PhoneNumber" type="text" class="form-control" id="phone-number">
+            <input asp-for="PhoneNumber" type="text" class="form-control" id="phone-number" id="name" required="required">
             <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </div>
         <div class="col-mb-3">
             <label asp-for="Address" class="form-label">Address</label>
-            <input asp-for="Address" type="text" class="form-control" id="address">
+            <input asp-for="Address" type="text" class="form-control" id="address" id="name" required="required">
             <span asp-validation-for="Address" class="text-danger"></span>
         </div>
         <div class="col-mb-3">
             <label asp-for="Email" class="form-label">Email</label>
-            <input asp-for="Email" type="text" class="form-control" id="email">
+            <input asp-for="Email" type="text" class="form-control" id="email" id="name" required="required">
             <span asp-validation-for="Email" class="text-danger"></span>
         </div>
         <div class="col-3" style="top: 15px;">
