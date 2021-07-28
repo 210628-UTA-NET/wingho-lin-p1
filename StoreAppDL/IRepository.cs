@@ -203,10 +203,24 @@ namespace StoreAppDL
         /// <returns>Manager object with a matching Manager ID</returns>
         Manager GetManagerByID(int p_manID);
 
+        /// <summary>
+        /// Adds a LineItem to LineItems table in the database
+        /// </summary>
+        /// <param name="p_lineItem">The LineItem to be added</param>
+        /// <returns>The LineItem object that was added</returns>
         LineItem AddLineItem(LineItem p_lineItem);
 
+        /// <summary>
+        /// Gets the next available ID for the Orders table
+        /// </summary>
+        /// <returns>The next available ID for Orders as an int</returns>
         int GetNextOrderID();
 
+        /// <summary>
+        /// Gets LineItem by ID
+        /// </summary>
+        /// <param name="p_lineItemID">LineItem ID to be matched</param>
+        /// <returns>LineItem object with a matching LineItem ID</returns>
         LineItem GetLineItemByID(int p_lineItemID);
     }
 }

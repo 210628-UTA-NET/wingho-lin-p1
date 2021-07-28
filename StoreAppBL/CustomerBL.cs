@@ -82,5 +82,95 @@ namespace StoreAppBL
         {
             return _repo.GetStoreLocation(p_storeID);
         }
+
+        public Customer GetCustomerByID(int p_custID)
+        {
+            return _repo.GetCustomerByID(p_custID);
+        }
+
+        public Product GetProductByID(int p_productID)
+        {
+            return _repo.GetProductByID(p_productID);
+        }
+
+        public StoreFront GetStoreFrontByID(int p_storeFrontID)
+        {
+            return _repo.GetStoreFrontByID(p_storeFrontID);
+        }
+
+        public List<LineItem> GetLineItemsByOrderID(int p_orderID)
+        {
+            return _repo.GetLineItemsByOrderID(p_orderID);
+        }
+
+        public Order GetOrderByID(int p_orderID)
+        {
+            return _repo.GetOrderByID(p_orderID);
+        }
+
+        public List<Customer> GetCustomersByName(string p_name)
+        {
+            return _repo.GetCustomersByName(p_name);
+        }
+
+        public List<Order> GetCustomerOrdersSortedByCostAsc(int p_custID)
+        {
+            return _repo.GetCustomerOrdersSortedByCostAsc(p_custID);
+        }
+
+        public List<Order> GetCustomerOrdersSortedByCostDesc(int p_custID)
+        {
+            return _repo.GetCustomerOrdersSortedByCostDesc(p_custID);
+        }
+
+        public List<Order> GetStoreFrontOrdersSortedByCostAsc(int p_storeID)
+        {
+            return _repo.GetStoreFrontOrdersSortedByCostAsc(p_storeID);
+        }
+
+        public List<Order> GetStoreFrontOrdersSortedByCostDesc(int p_storeID)
+        {
+            return _repo.GetStoreFrontOrdersSortedByCostDesc(p_storeID);
+        }
+
+        public List<Order> GetCustomerOrdersSortedByDateAsc(int p_custID)
+        {
+            return _repo.GetCustomerOrdersSortedByDateAsc(p_custID);
+        }
+
+        public List<Order> GetCustomerOrdersSortedByDateDesc(int p_custID)
+        {
+            return _repo.GetCustomerOrdersSortedByDateDesc(p_custID);
+        }
+
+        public List<Order> GetStoreFrontOrdersSortedByDateAsc(int p_storeID)
+        {
+            return _repo.GetStoreFrontOrdersSortedByDateAsc(p_storeID);
+        }
+
+        public List<Order> GetStoreFrontOrdersSortedByDateDesc(int p_storeID)
+        {
+            return _repo.GetStoreFrontOrdersSortedByDateDesc(p_storeID);
+        }
+
+        public Manager GetManagerByID(int p_manID)
+        {
+            return _repo.GetManagerByID(p_manID);
+        }
+
+        public LineItem AddLineItem(LineItem p_lineItem)
+        {
+            return _repo.AddLineItem(p_lineItem);
+        }
+
+        public int GetNextOrderID()
+        {
+            return _repo.GetNextOrderID();
+        }
+
+        public LineItem GetLineItemByID(int p_lineItemID)
+        {
+            return _repo.GetLineItemByID(p_lineItemID);
+        }
     }
 }
