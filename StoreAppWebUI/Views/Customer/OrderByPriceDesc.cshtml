@@ -1,0 +1,49 @@
+@model IEnumerable<StoreAppWebUI.Models.OrderVM>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h2>Orders By Price (ascending)</h2>
+     
+        <table class="table-primary">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Price</th>
+                    <th>Store ID</th>
+                    <th>Date Placed</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach(var order in Model)
+                {
+                    <tr>
+                        <td>
+                            Order ID: @Html.DisplayFor(ord => order.ID)
+                        </td>
+                        <td>
+                            Price: $@Html.DisplayFor(ord => order.Price)
+                        </td>
+                        <td>
+                            Store ID: @Html.DisplayFor(ord => order.StoreFrontID)
+                        </td>
+                        <td>
+                            Date Placed: @Html.DisplayFor(ord => order.DatePlaced)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Order Details", "OrderDetails", new {p_id = order.ID}, new { @style = "color:white;", @class = "btn btn-secondary" })
+                        </td>
+                    </tr>
+                
+                }
+            </tbody>
+        </table>
+    
+</body>
+</html>

@@ -24,10 +24,6 @@ namespace StoreAppWebUI.Controllers
                 .ToList()
             );
         }
-        public IActionResult Create()
-        {
-            return View();
-        }
         
         public IActionResult Add()
         {
@@ -64,20 +60,9 @@ namespace StoreAppWebUI.Controllers
             return RedirectToAction("Index");
         }
 
-        public IActionResult FindCustomer()
-        {
-            return View();
-        }
-        public IActionResult Display(StoreAppWebUI.Models.CustomerVM p_customer)
-        {
-            return View(new StoreAppWebUI.Models.CustomerVM(_customerBL.GetCustomerByID(p_customer.ID)));
-        }
-
         [HttpPost]
         public IActionResult Search(StoreAppWebUI.Models.CustomerVM p_customer)
         {
-            //List<StoreAppModel.Customer> customers = _customerBL.GetCustomersByName(p_custName);
-
             return View(_customerBL.GetCustomersByName(p_customer.Name)
                 .Select(customer => new StoreAppWebUI.Models.CustomerVM(customer))
                 .ToList());
@@ -86,6 +71,39 @@ namespace StoreAppWebUI.Controllers
         public IActionResult SearchPrompt()
         {
             return View();
+        }
+
+        public IActionResult OrderOptions(int p_custID)
+        {
+            return View(p_custID);
+        }
+
+        public IActionResult OrderByPriceAsc(int p_custID)
+        {
+            return View(_customerBL.GetCustomerOrdersSortedByCostAsc(p_custID)
+                .Select(order => new StoreAppWebUI.Models.OrderVM(order))
+                .ToList());
+        }
+
+        public IActionResult OrderByPriceDesc(int p_custID)
+        {
+            return View(_customerBL.GetCustomerOrdersSortedByCostDesc(p_custID)
+                .Select(order => new StoreAppWebUI.Models.OrderVM(order))
+                .ToList());
+        }
+
+        public IActionResult OrderByDateAsc(int p_custID)
+        {
+            return View(_customerBL.GetCustomerOrdersSortedByDateAsc(p_custID)
+                .Select(order => new StoreAppWebUI.Models.OrderVM(order))
+                .ToList());
+        }
+
+        public IActionResult OrderByDateDesc(int p_custID)
+        {
+            return View(_customerBL.GetCustomerOrdersSortedByDateDesc(p_custID)
+                .Select(order => new StoreAppWebUI.Models.OrderVM(order))
+                .ToList());
         }
     }
 }

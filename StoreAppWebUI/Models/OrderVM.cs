@@ -7,15 +7,23 @@ namespace StoreAppWebUI.Models
 {
     public class OrderVM
     {
-        public StoreAppModel.Order Order { get; set; }
-     
+        public int ID { get; set; }
+
+        public double Price { get; set; }
+
+        public int StoreFrontID { get; set; }
+        
+        public DateTime DatePlaced { get; set; }
         
         public OrderVM() 
         { }
 
         public OrderVM(StoreAppModel.Order p_order)
         {
-            Order = p_order;
+            ID = p_order.OrderID;
+            Price = p_order.OrderPrice;
+            StoreFrontID = p_order.StoreFront.StoreFrontID;
+            DatePlaced = p_order.DatePlaced;
         }
     }
 }

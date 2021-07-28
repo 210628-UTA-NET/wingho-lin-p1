@@ -1,0 +1,39 @@
+@{
+    int customer = Convert.ToInt32(Context.Request.Query["p_custID"]);
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Options</title>
+</head>
+<body>
+    <h3>How would you like to sort the Order History?</h3>
+    <table>
+        <tr>
+            <td>
+                By Cost:
+            </td>
+            <td>
+                @Html.ActionLink("Ascending", "OrderByPriceAsc", new {p_id = customer}, new { @style = "color:white;", @class = "btn btn-secondary" })
+            </td>
+            <td>
+                @Html.ActionLink("Descending", "OrderByPriceDesc", new {p_id = customer}, new { @style = "color:white;", @class = "btn btn-secondary" })
+            </td>
+        </tr>
+        <tr>
+            <td>
+                By Date:
+            </td>
+            <td>
+                @Html.ActionLink("Ascending", "OrderByDateAsc", new {p_id = customer}, new { @style = "color:white;", @class = "btn btn-secondary" })
+            </td>
+            <td>
+                @Html.ActionLink("Descending", "OrderByDateDesc", new {p_id = customer}, new { @style = "color:white;", @class = "btn btn-secondary" })
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

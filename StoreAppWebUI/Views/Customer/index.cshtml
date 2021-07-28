@@ -28,20 +28,23 @@
             @foreach (var item in Model)
             {
                 <tr class="table-primary">
-                    <td>
+                    <td class="table-primary">
                         @Html.DisplayFor(modelItem => item.Name)
                     </td>
-                    <td>
+                    <td class="table-primary">
                         @Html.DisplayFor(modelItem => item.Address)
                     </td>
-                    <td>
+                    <td class="table-primary">
                         @Html.DisplayFor(modelItem => item.Email)
                     </td>
-                    <td>
+                    <td class="table-primary">  
                         @Html.DisplayFor(modelItem => item.PhoneNumber)
                     </td>
-                    <td>
-                        @Html.ActionLink("Place Order", "SelectStore", new {p_id = item.ID}, new { @style = "color:white;", @class = "btn btn-primary" })
+                    <td class="table-primary">
+                        @Html.ActionLink("Place Order", "SelectStore", new {p_id = item.ID}, new { @style = "color:white;", @class = "btn btn-secondary" })
+                    </td>
+                    <td class="table-primary">  
+                        @Html.ActionLink("Order History", "OrderOptions", new {p_id = item.ID}, new { @style = "color:white;", @class = "btn btn-secondary" })
                     </td>
                 </tr>
             }

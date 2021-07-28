@@ -7,11 +7,11 @@ using Serilog;
 
 namespace StoreAppWebUI.Controllers
 {
-    public class StoreController : Controller
+    public class StoreFrontController : Controller
     {
         private readonly StoreAppBL.ICustomerBL _custBL;
         
-        public StoreController(ICustomerBL p_custBL)
+        public StoreFrontController(ICustomerBL p_custBL)
         {
             _custBL = p_custBL;
         }
@@ -26,9 +26,9 @@ namespace StoreAppWebUI.Controllers
         }
         public IActionResult View(int p_StoreFrontID)
         {
-            StoreAppModel.StoreFront store = _custBL.GetStoreFrontByID(p_StoreFrontID);
-            
-            return View(new StoreAppWebUI.Models.StoreVM(_custBL.GetStoreFrontByID(p_StoreFrontID)));
+            return View(_custBL.GetStoreProducts(p_StoreFrontID)
+                .Select(prod => new StoreAppWebUI.Models.ProductVM(prod))
+                .ToList());
         }
 
         public IActionResult UpdateQuantity(StoreAppWebUI.Models.ProductVM p_product, int p_addQuantity)
